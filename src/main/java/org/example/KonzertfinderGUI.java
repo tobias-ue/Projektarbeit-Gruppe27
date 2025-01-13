@@ -15,7 +15,7 @@ public class KonzertfinderGUI extends JFrame {
     private JLabel lblKartenpreis;
     private JLabel lblBarrierefreiEingabe;
     private JTextField tfKuenstlername;
-    private JTextField tfTag;
+    private JTextField tfDatum;
     private JTextField tfPreis;
     private JComboBox comboGenre;
     private JCheckBox checkBarrierefreiEingabe;
@@ -38,8 +38,7 @@ public class KonzertfinderGUI extends JFrame {
     private JPanel jpPanel;
     private JLabel lblUhrzeit;
     private JTextField tfUhrzeit;
-    private JTextField tfJahr;
-    private JTextField tfMonat;
+
 
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
 
@@ -82,29 +81,46 @@ public class KonzertfinderGUI extends JFrame {
     }
 
     private void addNewKonzert(){
+
+    //Werte aus Eingabefeldern auslesen
         String kuenstlerEingabe = tfKuenstlername.getText().toString();
-
         String genreEingabe = comboGenre.getSelectedItem().toString();
-        double kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString());
         boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
-
-        String tagEingabe = tfTag.getText().toString();
-        String monatEingabe = tfMonat.getText().toString();
-        String jahrEingabe = tfJahr.getText().toString();
-        int tag = Integer.parseInt(tagEingabe);
-        int monat = Integer.parseInt(monatEingabe);
-        int jahr = Integer.parseInt(jahrEingabe);
-
+        String datumEingabe = tfDatum.getText().toString();
         String uhrzeitEingabe = tfUhrzeit.getText().toString();
-                                        //falls länger als 5 Zeichen Exception werfen!!
+        double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld im nächsten Schritt
 
-        String stundeEingabe = uhrzeitEingabe.substring(0,2);
-        String minuteEingabe = uhrzeitEingabe.substring(3);
-        int stunde = Integer.parseInt(stundeEingabe);
-        int minute = Integer.parseInt(minuteEingabe);
+        //Fehlerhafte Eingaben beim Kartenpreis abfangen
+        try {
+            kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe im Feld Kartenpreis","Fehler",JOptionPane.ERROR_MESSAGE);
+        }
 
-        LocalDateTime ldtNeu = LocalDateTime.of(jahr,monat,tag,stunde,minute);
 
+        //Fehlerhafte Eingaben bei Datum und Uhrzeit abfangen
+
+        LocalDateTime ldtNeu = null; //Initialisieren der LocalDateTime ldtNeu außerhalb der try-catch-Anweisung, um später außerhalb darauf zugreifen zu können
+        try {
+            //String datumEingabe in tag, monat und jahr aufteilen
+            int tag = Integer.parseInt(datumEingabe.substring(0,2));
+            int monat = Integer.parseInt(datumEingabe.substring(3,5));
+            int jahr = Integer.parseInt(datumEingabe.substring(6));
+
+            //String uhrzeitEingabe in stunde und minute aufteilen
+            String stundeEingabe = uhrzeitEingabe.substring(0,2);
+            String minuteEingabe = uhrzeitEingabe.substring(3);
+            int stunde = Integer.parseInt(stundeEingabe);
+            int minute = Integer.parseInt(minuteEingabe);
+
+            //einsetzen in neue LocalDateTime
+            ldtNeu = LocalDateTime.of(jahr, monat, tag, stunde, minute);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe von Datum und/oder Uhrzeit!", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //Hinzufügen des Objekts zur Array-List
         Konzert kNeu = new Konzert(kuenstlerEingabe,ldtNeu,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
         konzertliste.add(kNeu);
     }
