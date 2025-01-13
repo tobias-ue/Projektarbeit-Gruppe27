@@ -34,6 +34,8 @@ public class KonzertfinderGUI extends JFrame {
     private JButton btSpeichern;
     private JButton btAlleAnzeigen;
     private JPanel jpPanel;
+    private JLabel lblUhrzeit;
+    private JTextField tfUhrzeit;
 
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
 
@@ -43,8 +45,11 @@ public class KonzertfinderGUI extends JFrame {
         setSize(1200,500);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        initObjekte(); //vorgegebene Objekte initialisieren
     }
 
+    //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
     public void initObjekte(){
         LocalDateTime d1 =  LocalDateTime.of(2025,04,23,19,00);
         Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 45,true);
@@ -57,6 +62,18 @@ public class KonzertfinderGUI extends JFrame {
         LocalDateTime d3 = LocalDateTime.of(2025,03,19,21,00);
         Konzert init3 = new Konzert("Eminem",d3,"HipHop",85,false);
         konzertliste.add(init3);
+    }
+
+    private void addNewKonzert(){
+        String kuenstlerEingabe = tfKuenstlername.getText().toString();
+
+        String genreEingabe = comboGenre.getSelectedItem().toString();
+        double kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString());
+        boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
+
+        LocalDateTime a1 = LocalDateTime.of(2025,05,01,20,00); //Beispieldatum
+
+        Konzert kNeu = new Konzert(kuenstlerEingabe,a1,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
     }
 
 }
