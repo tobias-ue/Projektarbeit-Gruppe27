@@ -15,7 +15,7 @@ public class KonzertfinderGUI extends JFrame {
     private JLabel lblKartenpreis;
     private JLabel lblBarrierefreiEingabe;
     private JTextField tfKuenstlername;
-    private JTextField tfDatum;
+    private JTextField tfTag;
     private JTextField tfPreis;
     private JComboBox comboGenre;
     private JCheckBox checkBarrierefreiEingabe;
@@ -38,6 +38,8 @@ public class KonzertfinderGUI extends JFrame {
     private JPanel jpPanel;
     private JLabel lblUhrzeit;
     private JTextField tfUhrzeit;
+    private JTextField tfJahr;
+    private JTextField tfMonat;
 
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
 
@@ -49,6 +51,7 @@ public class KonzertfinderGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         initObjekte(); //vorgegebene Objekte initialisieren
+
         btAlleAnzeigen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,9 +88,24 @@ public class KonzertfinderGUI extends JFrame {
         double kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString());
         boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
 
-        LocalDateTime a1 = LocalDateTime.of(2025,05,01,20,00); //Beispieldatum
+        String tagEingabe = tfTag.getText().toString();
+        String monatEingabe = tfMonat.getText().toString();
+        String jahrEingabe = tfJahr.getText().toString();
+        int tag = Integer.parseInt(tagEingabe);
+        int monat = Integer.parseInt(monatEingabe);
+        int jahr = Integer.parseInt(jahrEingabe);
 
-        Konzert kNeu = new Konzert(kuenstlerEingabe,a1,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
+        String uhrzeitEingabe = tfUhrzeit.getText().toString();
+                                        //falls länger als 5 Zeichen Exception werfen!!
+
+        String stundeEingabe = uhrzeitEingabe.substring(0,2);
+        String minuteEingabe = uhrzeitEingabe.substring(3);
+        int stunde = Integer.parseInt(stundeEingabe);
+        int minute = Integer.parseInt(minuteEingabe);
+
+        LocalDateTime ldtNeu = LocalDateTime.of(jahr,monat,tag,stunde,minute);
+
+        Konzert kNeu = new Konzert(kuenstlerEingabe,ldtNeu,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
         konzertliste.add(kNeu);
     }
 
@@ -97,5 +115,4 @@ public class KonzertfinderGUI extends JFrame {
             taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
         }
     }
-
 }
