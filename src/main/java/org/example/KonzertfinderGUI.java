@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -47,6 +49,18 @@ public class KonzertfinderGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         initObjekte(); //vorgegebene Objekte initialisieren
+        btAlleAnzeigen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alleAusgeben();
+            }
+        });
+        btSpeichern.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addNewKonzert();
+            }
+        });
     }
 
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
@@ -74,6 +88,14 @@ public class KonzertfinderGUI extends JFrame {
         LocalDateTime a1 = LocalDateTime.of(2025,05,01,20,00); //Beispieldatum
 
         Konzert kNeu = new Konzert(kuenstlerEingabe,a1,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
+        konzertliste.add(kNeu);
+    }
+
+    private void alleAusgeben(){
+        taAusgabe.setText(" ");
+        for (Konzert ele : konzertliste){
+            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
+        }
     }
 
 }

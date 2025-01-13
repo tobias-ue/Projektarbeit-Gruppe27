@@ -20,5 +20,23 @@ public class Konzert {
         this.barrierefrei = barrierefrei;
     }
 
+    public String getKuenstlername() {
+        return kuenstlername;
+    }
 
+    public LocalDateTime getDatum() {
+        return datum;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public double getKartenpreis() {
+        return kartenpreis;
+    }
+
+    public boolean isBarrierefrei() {
+        return barrierefrei;
+    }
 }
