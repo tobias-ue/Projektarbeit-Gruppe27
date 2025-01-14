@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class KonzertfinderGUI extends JFrame {
     private JLabel lblEingabe;
@@ -63,6 +66,18 @@ public class KonzertfinderGUI extends JFrame {
                 addNewKonzert();
             }
         });
+        btFiltern.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        comboSortieren.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                sortieren();
+            }
+        });
     }
 
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
@@ -80,9 +95,10 @@ public class KonzertfinderGUI extends JFrame {
         konzertliste.add(init3);
     }
 
+    //Methode zum hinzufügen eines neuen Konzerts zur Array List
     private void addNewKonzert(){
 
-    //Werte aus Eingabefeldern auslesen
+        //Werte aus Eingabefeldern auslesen
         String kuenstlerEingabe = tfKuenstlername.getText().toString();
         String genreEingabe = comboGenre.getSelectedItem().toString();
         boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
@@ -117,6 +133,8 @@ public class KonzertfinderGUI extends JFrame {
             ldtNeu = LocalDateTime.of(jahr, monat, tag, stunde, minute);
 
         } catch (Exception e) {
+            tfDatum.setText("");
+            tfUhrzeit.setText("");
             JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe von Datum und/oder Uhrzeit!", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -126,7 +144,39 @@ public class KonzertfinderGUI extends JFrame {
     }
 
     private void alleAusgeben(){
-        taAusgabe.setText(" ");
+        sortieren();    //nach eingestelltem Sortier-Modus sortieren
+
+        taAusgabe.setText("");
+        for (Konzert ele : konzertliste){
+            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
+        }
+    }
+
+
+
+
+
+    private void sortieren(){
+        String sortiermodus = comboSortieren.getSelectedItem().toString();      //lieber in eine Zeile???
+
+        //Liste je nach ausgewähltem Sortiermodus ordnen
+        if (sortiermodus.equals("Preis aufsteigend")){
+            Collections.sort(konzertliste, (sort1,sort2) -> Double.compare(sort1.getKartenpreis(),sort2.getKartenpreis()));
+        }
+        if (sortiermodus.equals("Preis absteigend")){
+            Collections.sort(konzertliste, (sort1,sort2) -> Double.compare(sort1.getKartenpreis(),sort2.getKartenpreis()));
+            Collections.reverse(konzertliste);
+        }
+        if (sortiermodus.equals("Datum aufsteigend")){
+            Collections.sort(konzertliste, (sort1,sort2) -> sort1.getDatum().compareTo(sort2.getDatum()));
+        }
+        if (sortiermodus.equals("Datum absteigend")){
+            Collections.sort(konzertliste, (sort1,sort2) -> sort1.getDatum().compareTo(sort2.getDatum()));
+            Collections.reverse(konzertliste);
+        }
+
+        //Ausgeben der sortierten Liste
+        taAusgabe.setText("");
         for (Konzert ele : konzertliste){
             taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
         }
