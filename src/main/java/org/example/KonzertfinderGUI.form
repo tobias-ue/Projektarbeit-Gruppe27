@@ -137,7 +137,9 @@
         <children>
           <component id="84152" class="javax.swing.JTextArea" binding="taAusgabe">
             <constraints/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

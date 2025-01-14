@@ -69,7 +69,7 @@ public class KonzertfinderGUI extends JFrame {
         btFiltern.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                filtern();
             }
         });
         comboSortieren.addItemListener(new ItemListener() {
@@ -153,7 +153,9 @@ public class KonzertfinderGUI extends JFrame {
     }
 
 
+    private void filtern(){
 
+    }
 
 
     private void sortieren(){
