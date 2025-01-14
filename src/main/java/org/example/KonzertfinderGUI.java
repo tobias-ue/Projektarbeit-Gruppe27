@@ -143,12 +143,13 @@ public class KonzertfinderGUI extends JFrame {
         konzertliste.add(kNeu);
     }
 
+    //Methode zum Anzeigen aller Objekte der ArrayList in der JTextArea
     private void alleAusgeben(){
-        sortieren();    //nach eingestelltem Sortier-Modus sortieren
+        sortieren();    //nach eingestelltem Sortiermodus sortieren
 
         taAusgabe.setText("");
         for (Konzert ele : konzertliste){
-            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
+            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
         }
     }
 
@@ -157,7 +158,7 @@ public class KonzertfinderGUI extends JFrame {
 
     }
 
-
+    //Methode zum Sortieren der Objekte in der ArrayList und anschließende Ausgabe in der JTextArea
     private void sortieren(){
         String sortiermodus = comboSortieren.getSelectedItem().toString();      //lieber in eine Zeile???
 
@@ -180,7 +181,7 @@ public class KonzertfinderGUI extends JFrame {
         //Ausgeben der sortierten Liste
         taAusgabe.setText("");
         for (Konzert ele : konzertliste){
-            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getDatum() +  "\t" + ele.isBarrierefrei());
+            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
         }
     }
 }

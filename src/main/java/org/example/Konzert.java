@@ -27,12 +27,8 @@ public class Konzert {
         return kuenstlername;
     }
 
-    public String getDatum() {
-        //modifiziert, um Datum in angepasstem Format auszugeben
-
-        DateTimeFormatter formatvorlage = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"); //Formatvorlage erstellt
-        String datumFormatiert = datum.format(formatvorlage); //Umwandeln des Datums des Objekts in Format der Vorlage
-        return datumFormatiert;
+    public LocalDateTime getDatum() {
+        return datum;
     }
 
     public String getGenre() {
@@ -45,5 +41,13 @@ public class Konzert {
 
     public boolean isBarrierefrei() {
         return barrierefrei;
+    }
+
+    public String getFormatiertesDatum() {
+        //Format des Datums für die Anzeige in der JTextArea anpassen
+
+        DateTimeFormatter formatvorlage = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"); //Formatvorlage erstellt
+        String datumFormatiert = datum.format(formatvorlage); //Umwandeln des Datums des Objekts in Format der Vorlage
+        return datumFormatiert;
     }
 }
