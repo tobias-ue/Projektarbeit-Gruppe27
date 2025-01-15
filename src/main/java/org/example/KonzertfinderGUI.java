@@ -78,6 +78,12 @@ public class KonzertfinderGUI extends JFrame {
                 sortieren();
             }
         });
+        btFiltern.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filtern();
+            }
+        });
     }
 
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
@@ -99,12 +105,33 @@ public class KonzertfinderGUI extends JFrame {
     private void addNewKonzert(){
 
         //Werte aus Eingabefeldern auslesen
-        String kuenstlerEingabe = tfKuenstlername.getText().toString();
+        String kuenstlerEingabe = null;
         String genreEingabe = comboGenre.getSelectedItem().toString();
         boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
         String datumEingabe = tfDatum.getText().toString();
         String uhrzeitEingabe = tfUhrzeit.getText().toString();
         double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld im nächsten Schritt
+
+        //Sicherstellen, dass Genre ausgewählt wurde
+        try {
+            if (genreEingabe.equals("Auswählen...")){
+                throw new Exception("Fehler!");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Bitte Genre auswählen.","Fehler",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Werfen einer Exception, wenn tfKuenstlername leer bleibt
+        try {
+            kuenstlerEingabe = tfKuenstlername.getText().toString();
+            kuenstlerEingabe.trim();
+            if (kuenstlerEingabe.equals("")){
+                throw new Exception("Fehler!");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Bitte Künstlername eingeben.","Fehlerhafte Eingabe",JOptionPane.ERROR_MESSAGE );
+        }
 
         //Fehlerhafte Eingaben beim Kartenpreis abfangen
         try {
@@ -155,7 +182,37 @@ public class KonzertfinderGUI extends JFrame {
 
 
     private void filtern(){
+        boolean pop = rbPop.isSelected();
+        boolean rock = rbRock.isSelected();
+        boolean schlager = rbSchlager.isSelected();
+        boolean dance = rbDance.isSelected();
+        boolean hiphop = rbHipHop.isSelected();
 
+        String gewaehltesGenre = comboGenre.getSelectedItem().toString();
+        taAusgabe.setText("");
+
+        for (Konzert ele : konzertliste){
+            if (pop == true && gewaehltesGenre.equals("Pop")){
+                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+
+            }
+            if (rock == true && gewaehltesGenre.equals("Rock")){
+                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+
+            }
+            if (schlager == true && gewaehltesGenre.equals("Schlager")){
+                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+
+            }
+            if (dance == true && gewaehltesGenre.equals("Dance")){
+                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+
+            }
+            if (hiphop == true && gewaehltesGenre.equals("Hiphop")){
+                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+
+            }
+        }
     }
 
     //Methode zum Sortieren der Objekte in der ArrayList und anschließende Ausgabe in der JTextArea
