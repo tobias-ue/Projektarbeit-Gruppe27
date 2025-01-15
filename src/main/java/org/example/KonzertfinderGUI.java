@@ -41,10 +41,13 @@ public class KonzertfinderGUI extends JFrame {
     private JPanel jpPanel;
     private JLabel lblUhrzeit;
     private JTextField tfUhrzeit;
+    private JTextField tfKategorien;
+    private JLabel lblGenreFilter;
 
-
+    //Anlegen der Array-List
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
 
+    //Konstruktor für GUI
     public KonzertfinderGUI() throws HeadlessException {
         setTitle("Konzertsuche");
         setContentPane(jpPanel);
@@ -101,7 +104,7 @@ public class KonzertfinderGUI extends JFrame {
         konzertliste.add(init3);
     }
 
-    //Methode zum hinzufügen eines neuen Konzerts zur Array List
+    //Methode zum Hinzufügen eines neuen Konzerts zur ArrayList
     private void addNewKonzert(){
 
         //Werte aus Eingabefeldern auslesen
@@ -176,11 +179,11 @@ public class KonzertfinderGUI extends JFrame {
 
         taAusgabe.setText("");
         for (Konzert ele : konzertliste){
-            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+            taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
         }
     }
 
-
+    //Methode zum Filtern und anschließenden Ausgeben der Objekte
     private void filtern(){
         boolean pop = rbPop.isSelected();
         boolean rock = rbRock.isSelected();
@@ -192,37 +195,38 @@ public class KonzertfinderGUI extends JFrame {
         boolean eintragGefunden = false;
         boolean barrierefreiFilter = checkBarrierefreiFilter.isSelected();
 
+        //Iterieren durch Array-List und Ausgeben unter Berücksichtigung der ausgewählten Filter
         for (Konzert ele : konzertliste){
             String objektGenre = ele.getGenre();
             boolean objektBarrierefrei = ele.isBarrierefrei();
 
             if (pop == true && objektGenre.equals("Pop")){
-                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
-                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                if (objektBarrierefrei || !barrierefreiFilter) {
+                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                     eintragGefunden = true;
                 }
             }
             if (rock == true && objektGenre.equals("Rock")){
-                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
-                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                if (objektBarrierefrei || !barrierefreiFilter) {
+                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                     eintragGefunden = true;
                 }
             }
             if (schlager == true && objektGenre.equals("Schlager")){
-                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
-                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                if (objektBarrierefrei || !barrierefreiFilter) {
+                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                     eintragGefunden = true;
                 }
             }
             if (dance == true && objektGenre.equals("Dance")){
-                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
-                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                if (objektBarrierefrei || !barrierefreiFilter) {
+                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                     eintragGefunden = true;
                 }
             }
             if (hiphop == true && objektGenre.equals("HipHop")){
-                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
-                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                if (objektBarrierefrei || !barrierefreiFilter) {
+                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                     eintragGefunden = true;
                 }
             }

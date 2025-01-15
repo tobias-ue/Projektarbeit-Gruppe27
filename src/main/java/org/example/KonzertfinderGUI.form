@@ -35,6 +35,7 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Franklin Gothic Heavy" size="16" style="0"/>
           <text value="Eingabe"/>
         </properties>
       </component>
@@ -125,7 +126,7 @@
       </component>
       <vspacer id="54fd">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <scrollpane id="c96eb" binding="scrollPane">
@@ -153,7 +154,7 @@
       </hspacer>
       <component id="c1dac" class="javax.swing.JComboBox" binding="comboSortieren">
         <constraints>
-          <grid row="3" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <model>
@@ -166,7 +167,7 @@
       </component>
       <component id="8e4a3" class="javax.swing.JLabel" binding="lblSortieren">
         <constraints>
-          <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="58" height="17"/>
           </grid>
         </constraints>
@@ -179,6 +180,7 @@
           <grid row="1" column="5" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Franklin Gothic Heavy" size="16" style="0"/>
           <text value="Verfügbare Konzerte"/>
         </properties>
       </component>
@@ -187,6 +189,7 @@
           <grid row="1" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Franklin Gothic Heavy" size="16" style="0"/>
           <text value="Filter"/>
         </properties>
       </component>
@@ -195,6 +198,7 @@
           <grid row="4" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="Pop"/>
         </properties>
       </component>
@@ -203,6 +207,7 @@
           <grid row="5" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="Rock"/>
         </properties>
       </component>
@@ -214,11 +219,6 @@
           <text value="Filtern"/>
         </properties>
       </component>
-      <vspacer id="8900a">
-        <constraints>
-          <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
       <hspacer id="7327a">
         <constraints>
           <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -226,7 +226,7 @@
       </hspacer>
       <component id="68a63" class="javax.swing.JButton" binding="btAlleAnzeigen">
         <constraints>
-          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Alle anzeigen"/>
@@ -234,7 +234,7 @@
       </component>
       <hspacer id="d53c2">
         <constraints>
-          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
       <component id="96c6c" class="javax.swing.JLabel" binding="lblEuro">
@@ -267,6 +267,7 @@
           <grid row="6" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="Schlager"/>
         </properties>
       </component>
@@ -275,6 +276,7 @@
           <grid row="7" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="Dance"/>
         </properties>
       </component>
@@ -283,6 +285,7 @@
           <grid row="8" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="HipHop"/>
         </properties>
       </component>
@@ -291,7 +294,7 @@
           <grid row="10" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="barrierefrei"/>
+          <text value="nur barrierefreie"/>
         </properties>
       </component>
       <component id="490bc" class="javax.swing.JButton" binding="btSpeichern">
@@ -307,6 +310,29 @@
           <grid row="11" column="10" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
+      <component id="e3f2f" class="javax.swing.JTextField" binding="tfKategorien">
+        <constraints>
+          <grid row="3" column="5" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font style="1"/>
+          <horizontalAlignment value="10"/>
+          <text value="Künstler&#9; Genre&#9;   Preis&#9;     Datum&#9;&#9;        barrierefrei?"/>
+        </properties>
+      </component>
+      <component id="d0b2b" class="javax.swing.JLabel" binding="lblGenreFilter">
+        <constraints>
+          <grid row="3" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font style="1"/>
+          <text value="Genre"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
