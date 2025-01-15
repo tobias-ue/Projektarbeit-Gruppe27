@@ -187,31 +187,48 @@ public class KonzertfinderGUI extends JFrame {
         boolean schlager = rbSchlager.isSelected();
         boolean dance = rbDance.isSelected();
         boolean hiphop = rbHipHop.isSelected();
-
-        String gewaehltesGenre = comboGenre.getSelectedItem().toString();
+        
         taAusgabe.setText("");
+        boolean eintragGefunden = false;
+        boolean barrierefreiFilter = checkBarrierefreiFilter.isSelected();
 
         for (Konzert ele : konzertliste){
-            if (pop == true && gewaehltesGenre.equals("Pop")){
-                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
+            String objektGenre = ele.getGenre();
+            boolean objektBarrierefrei = ele.isBarrierefrei();
 
+            if (pop == true && objektGenre.equals("Pop")){
+                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
+                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                    eintragGefunden = true;
+                }
             }
-            if (rock == true && gewaehltesGenre.equals("Rock")){
-                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
-
+            if (rock == true && objektGenre.equals("Rock")){
+                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
+                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                    eintragGefunden = true;
+                }
             }
-            if (schlager == true && gewaehltesGenre.equals("Schlager")){
-                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
-
+            if (schlager == true && objektGenre.equals("Schlager")){
+                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
+                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                    eintragGefunden = true;
+                }
             }
-            if (dance == true && gewaehltesGenre.equals("Dance")){
-                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
-
+            if (dance == true && objektGenre.equals("Dance")){
+                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
+                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                    eintragGefunden = true;
+                }
             }
-            if (hiphop == true && gewaehltesGenre.equals("Hiphop")){
-                taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
-
+            if (hiphop == true && objektGenre.equals("HipHop")){
+                if (barrierefreiFilter && objektBarrierefrei || !barrierefreiFilter && !objektBarrierefrei) {
+                    taAusgabe.append("\n" + ele.getKuenstlername() + "\t" + ele.getGenre() + "\t" + ele.getKartenpreis() + "\t" + ele.getFormatiertesDatum() + "\t" + ele.isBarrierefrei());
+                    eintragGefunden = true;
+                }
             }
+        }
+        if (eintragGefunden == false){
+            taAusgabe.setText("Keine passenden Konzerte gefunden.");
         }
     }
 
@@ -235,10 +252,8 @@ public class KonzertfinderGUI extends JFrame {
             Collections.reverse(konzertliste);
         }
 
-        //Ausgeben der sortierten Liste
-        taAusgabe.setText("");
-        for (Konzert ele : konzertliste){
-            taAusgabe.append("\n" + ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei());
-        }
+        //Ausgeben der sortierten Liste und filtern über Aufruf der Methode filtern()
+        filtern();
     }
+
 }
