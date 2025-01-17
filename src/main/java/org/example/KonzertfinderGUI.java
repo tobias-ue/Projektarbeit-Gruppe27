@@ -43,6 +43,7 @@ public class KonzertfinderGUI extends JFrame {
     private JTextField tfUhrzeit;
     private JTextField tfKategorien;
     private JLabel lblGenreFilter;
+    private JCheckBox checkUnterHundert;
 
     //Anlegen der Array-List
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
@@ -92,7 +93,7 @@ public class KonzertfinderGUI extends JFrame {
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
     public void initObjekte(){
         LocalDateTime d1 =  LocalDateTime.of(2025,04,23,19,00);
-        Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 45,true);
+        Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 70,true);
         konzertliste.add(init1);
 
         LocalDateTime d2 =  LocalDateTime.of(2025,07,02,20,30);
@@ -115,25 +116,22 @@ public class KonzertfinderGUI extends JFrame {
         String uhrzeitEingabe = tfUhrzeit.getText().toString();
         double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld im nächsten Schritt
 
-        //Sicherstellen, dass Genre ausgewählt wurde
+        //Exception Handling
         try {
+            //Sicherstellen, dass Genre ausgewählt wurde
             if (genreEingabe.equals("Auswählen...")){
-                throw new Exception("Fehler!");
+                throw new Exception("Bitte Genre auswählen.");
             }
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Bitte Genre auswählen.","Fehler",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
-        //Werfen einer Exception, wenn tfKuenstlername leer bleibt
-        try {
+            //Werfen einer Exception, wenn tfKuenstlername leer bleibt
             kuenstlerEingabe = tfKuenstlername.getText().toString();
             kuenstlerEingabe.trim();
             if (kuenstlerEingabe.equals("")){
-                throw new Exception("Fehler!");
+                throw new Exception("Bitte Künstlername eingeben.");
             }
         } catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Bitte Künstlername eingeben.","Fehlerhafte Eingabe",JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null,e.getMessage(),"Fehler",JOptionPane.ERROR_MESSAGE );
+            return;
         }
 
         //Fehlerhafte Eingaben beim Kartenpreis abfangen
@@ -171,6 +169,13 @@ public class KonzertfinderGUI extends JFrame {
         //Hinzufügen des Objekts zur Array-List
         Konzert kNeu = new Konzert(kuenstlerEingabe,ldtNeu,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
         konzertliste.add(kNeu);
+
+        //Zurücksetzen der Eingabefelder
+        tfKuenstlername.setText("");
+        tfDatum.setText("");
+        tfUhrzeit.setText("");
+        tfPreis.setText("");
+        comboGenre.setSelectedItem("Auswählen...");
     }
 
     //Methode zum Anzeigen aller Objekte der ArrayList in der JTextArea
@@ -194,41 +199,44 @@ public class KonzertfinderGUI extends JFrame {
         taAusgabe.setText("");
         boolean eintragGefunden = false;
         boolean barrierefreiFilter = checkBarrierefreiFilter.isSelected();
+        boolean unterHundertFilter = checkUnterHundert.isSelected();
 
         //Iterieren durch Array-List und Ausgeben unter Berücksichtigung der ausgewählten Filter
         for (Konzert ele : konzertliste){
             String objektGenre = ele.getGenre();
             boolean objektBarrierefrei = ele.isBarrierefrei();
 
-            if (pop == true && objektGenre.equals("Pop")){
-                if (objektBarrierefrei || !barrierefreiFilter) {
-                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                    eintragGefunden = true;
-                }
+            boolean barrierefreiFilterOkay = (objektBarrierefrei || !barrierefreiFilter); //Voraussetzung: entweder Objekt ist barrierefrei oder Filter ist nicht ausgewählt
+            boolean unterHundertFilterOkay = (ele.pruefeUnterHundert() || !unterHundertFilter); //Voraussetzung: entweder Objekt ist günstiger als 100€ oder Filter ist nicht ausgewählt
+            boolean checkboxFilterOkay = (barrierefreiFilterOkay && unterHundertFilterOkay); //beide obigen Voraussetzungen zutreffend
+
+            //prüfen, ob Objekt zu einem der Genres passt, nach denen gefiltert wird
+            boolean popOkay = (pop == true && objektGenre.equals("Pop"));
+            boolean rockOkay = (rock == true && objektGenre.equals("Rock"));
+            boolean schlagerOkay = (schlager == true && objektGenre.equals("Schlager"));
+            boolean danceOkay = (dance == true && objektGenre.equals("Dance"));
+            boolean hiphopOkay = (hiphop == true && objektGenre.equals("HipHop"));
+
+            //prüfen, ob Objekt zu einem ausgewählten Genre passt und auf die Checkbox-Filter zutrifft
+            if (popOkay && checkboxFilterOkay){
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                eintragGefunden = true;
             }
-            if (rock == true && objektGenre.equals("Rock")){
-                if (objektBarrierefrei || !barrierefreiFilter) {
-                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                    eintragGefunden = true;
-                }
+            if (rockOkay && checkboxFilterOkay){
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                eintragGefunden = true;
             }
-            if (schlager == true && objektGenre.equals("Schlager")){
-                if (objektBarrierefrei || !barrierefreiFilter) {
-                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                    eintragGefunden = true;
-                }
+            if (schlagerOkay && checkboxFilterOkay){
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                eintragGefunden = true;
             }
-            if (dance == true && objektGenre.equals("Dance")){
-                if (objektBarrierefrei || !barrierefreiFilter) {
-                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                    eintragGefunden = true;
-                }
+            if (danceOkay && checkboxFilterOkay){
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                eintragGefunden = true;
             }
-            if (hiphop == true && objektGenre.equals("HipHop")){
-                if (objektBarrierefrei || !barrierefreiFilter) {
-                    taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                    eintragGefunden = true;
-                }
+            if (hiphopOkay && checkboxFilterOkay){
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                eintragGefunden = true;
             }
         }
         if (eintragGefunden == false){

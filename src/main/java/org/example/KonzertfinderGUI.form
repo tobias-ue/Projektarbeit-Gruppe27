@@ -124,11 +124,6 @@
           <text value="ja"/>
         </properties>
       </component>
-      <vspacer id="54fd">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
       <scrollpane id="c96eb" binding="scrollPane">
         <constraints>
           <grid row="4" column="5" row-span="9" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -193,24 +188,6 @@
           <text value="Filter"/>
         </properties>
       </component>
-      <component id="3d393" class="javax.swing.JRadioButton" binding="rbPop">
-        <constraints>
-          <grid row="4" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <selected value="true"/>
-          <text value="Pop"/>
-        </properties>
-      </component>
-      <component id="6d238" class="javax.swing.JRadioButton" binding="rbRock">
-        <constraints>
-          <grid row="5" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <selected value="true"/>
-          <text value="Rock"/>
-        </properties>
-      </component>
       <component id="9aadc" class="javax.swing.JButton" binding="btFiltern">
         <constraints>
           <grid row="12" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -262,33 +239,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="5e29e" class="javax.swing.JRadioButton" binding="rbSchlager">
-        <constraints>
-          <grid row="6" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <selected value="true"/>
-          <text value="Schlager"/>
-        </properties>
-      </component>
-      <component id="8cdc2" class="javax.swing.JRadioButton" binding="rbDance">
-        <constraints>
-          <grid row="7" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <selected value="true"/>
-          <text value="Dance"/>
-        </properties>
-      </component>
-      <component id="95389" class="javax.swing.JRadioButton" binding="rbHipHop">
-        <constraints>
-          <grid row="8" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <selected value="true"/>
-          <text value="HipHop"/>
-        </properties>
-      </component>
       <component id="b432d" class="javax.swing.JCheckBox" binding="checkBarrierefreiFilter">
         <constraints>
           <grid row="10" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -324,15 +274,73 @@
           <text value="Künstler&#9; Genre&#9;   Preis&#9;     Datum&#9;&#9;        barrierefrei?"/>
         </properties>
       </component>
-      <component id="d0b2b" class="javax.swing.JLabel" binding="lblGenreFilter">
+      <component id="97ec5" class="javax.swing.JCheckBox" binding="checkUnterHundert">
         <constraints>
-          <grid row="3" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="9" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <text value="unter 100€"/>
+        </properties>
+      </component>
+      <component id="d0b2b" class="javax.swing.JLabel" binding="lblGenreFilter">
+        <constraints>
+          <grid row="2" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="12" style="1"/>
           <text value="Genre"/>
         </properties>
       </component>
+      <component id="3d393" class="javax.swing.JRadioButton" binding="rbPop">
+        <constraints>
+          <grid row="3" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Pop"/>
+        </properties>
+      </component>
+      <component id="6d238" class="javax.swing.JRadioButton" binding="rbRock">
+        <constraints>
+          <grid row="4" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Rock"/>
+        </properties>
+      </component>
+      <component id="5e29e" class="javax.swing.JRadioButton" binding="rbSchlager">
+        <constraints>
+          <grid row="5" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Schlager"/>
+        </properties>
+      </component>
+      <component id="8cdc2" class="javax.swing.JRadioButton" binding="rbDance">
+        <constraints>
+          <grid row="6" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Dance"/>
+        </properties>
+      </component>
+      <component id="95389" class="javax.swing.JRadioButton" binding="rbHipHop">
+        <constraints>
+          <grid row="7" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="HipHop"/>
+        </properties>
+      </component>
+      <vspacer id="52b89">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>

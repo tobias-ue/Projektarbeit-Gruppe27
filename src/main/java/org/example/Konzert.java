@@ -50,4 +50,12 @@ public class Konzert {
         String datumFormatiert = datum.format(formatvorlage); //Umwandeln des Datums des Objekts in Format der Vorlage
         return datumFormatiert;
     }
+
+    public boolean pruefeUnterHundert(){
+        boolean unterHundert = false;
+        if (kartenpreis < 100){
+            unterHundert = true;
+        }
+        return unterHundert;
+    }
 }
