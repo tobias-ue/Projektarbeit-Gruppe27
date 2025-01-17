@@ -43,12 +43,21 @@ public class Konzert {
         return barrierefrei;
     }
 
+    //Format des Datums für die Anzeige in der JTextArea anpassen
     public String getFormatiertesDatum() {
-        //Format des Datums für die Anzeige in der JTextArea anpassen
-
         DateTimeFormatter formatvorlage = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"); //Formatvorlage erstellt
         String datumFormatiert = datum.format(formatvorlage); //Umwandeln des Datums des Objekts in Format der Vorlage
         return datumFormatiert;
+    }
+
+    //Angabe der Barrierefreiheit in deutsche Wörter umwandeln
+    public String isBarrierefreiFormatiert(){
+        if (barrierefrei == true){
+            return "Ja";
+        }
+        else {
+            return "Nein";
+        }
     }
 
     public boolean pruefeUnterHundert(){

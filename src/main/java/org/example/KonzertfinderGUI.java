@@ -184,7 +184,7 @@ public class KonzertfinderGUI extends JFrame {
 
         taAusgabe.setText("");
         for (Konzert ele : konzertliste){
-            taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+            taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n");
         }
     }
 
@@ -222,7 +222,7 @@ public class KonzertfinderGUI extends JFrame {
 
             //prüfen, ob Objekt zu einem ausgewählten Genre passt und auf die Checkbox-Filter zutrifft
             if (genreOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n");
                 eintragGefunden = true;
             }
         }
