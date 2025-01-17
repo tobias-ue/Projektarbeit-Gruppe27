@@ -52,10 +52,7 @@ public class Konzert {
     }
 
     public boolean pruefeUnterHundert(){
-        boolean unterHundert = false;
-        if (kartenpreis < 100){
-            unterHundert = true;
-        }
+        boolean unterHundert = (kartenpreis < 100);
         return unterHundert;
     }
 }

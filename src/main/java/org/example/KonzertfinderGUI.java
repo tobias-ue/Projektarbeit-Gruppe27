@@ -118,7 +118,7 @@ public class KonzertfinderGUI extends JFrame {
 
         //Exception Handling
         try {
-            //Sicherstellen, dass Genre ausgewählt wurde
+            //Werfen einer Exception, wenn kein Genre ausgewählt wurde
             if (genreEingabe.equals("Auswählen...")){
                 throw new Exception("Bitte Genre auswählen.");
             }
@@ -217,28 +217,16 @@ public class KonzertfinderGUI extends JFrame {
             boolean danceOkay = (dance == true && objektGenre.equals("Dance"));
             boolean hiphopOkay = (hiphop == true && objektGenre.equals("HipHop"));
 
+            //Zusammenfassen der vorherigen Booleans
+            boolean genreOkay = (popOkay || rockOkay || schlagerOkay || danceOkay || hiphopOkay);
+
             //prüfen, ob Objekt zu einem ausgewählten Genre passt und auf die Checkbox-Filter zutrifft
-            if (popOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                eintragGefunden = true;
-            }
-            if (rockOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                eintragGefunden = true;
-            }
-            if (schlagerOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                eintragGefunden = true;
-            }
-            if (danceOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
-                eintragGefunden = true;
-            }
-            if (hiphopOkay && checkboxFilterOkay){
+            if (genreOkay && checkboxFilterOkay){
                 taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefrei() + "\n");
                 eintragGefunden = true;
             }
         }
+        //falls kein Objekt auf Filter zutrifft, Mitteilung in TextArea ausgeben
         if (eintragGefunden == false){
             taAusgabe.setText("Keine passenden Konzerte gefunden.");
         }
