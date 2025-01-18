@@ -70,12 +70,6 @@ public class KonzertfinderGUI extends JFrame {
                 addNewKonzert();
             }
         });
-        btFiltern.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                filtern();
-            }
-        });
         comboSortieren.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -93,15 +87,15 @@ public class KonzertfinderGUI extends JFrame {
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
     public void initObjekte(){
         LocalDateTime d1 =  LocalDateTime.of(2025,04,23,19,00);
-        Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 70,true);
+        Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 70.0,true);
         konzertliste.add(init1);
 
         LocalDateTime d2 =  LocalDateTime.of(2025,07,02,20,30);
-        Konzert init2 = new Konzert("Linkin Park", d2, "Rock", 110,true);
+        Konzert init2 = new Konzert("Linkin Park", d2, "Rock", 110.0,true);
         konzertliste.add(init2);
 
         LocalDateTime d3 = LocalDateTime.of(2025,03,19,21,00);
-        Konzert init3 = new Konzert("Eminem",d3,"HipHop",85,false);
+        Konzert init3 = new Konzert("Eminem",d3,"HipHop",85.5,false);
         konzertliste.add(init3);
     }
 
@@ -116,35 +110,11 @@ public class KonzertfinderGUI extends JFrame {
         String uhrzeitEingabe = tfUhrzeit.getText().toString();
         double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld im nächsten Schritt
 
+        LocalDateTime ldtNeu = null; //Initialisieren der LocalDateTime ldtNeu außerhalb der try-catch-Anweisung, um später außerhalb darauf zugreifen zu können
+
         //Exception Handling
-        try {
-            //Werfen einer Exception, wenn kein Genre ausgewählt wurde
-            if (genreEingabe.equals("Auswählen...")){
-                throw new Exception("Bitte Genre auswählen.");
-            }
-
-            //Werfen einer Exception, wenn tfKuenstlername leer bleibt
-            kuenstlerEingabe = tfKuenstlername.getText().toString();
-            kuenstlerEingabe.trim();
-            if (kuenstlerEingabe.equals("")){
-                throw new Exception("Bitte Künstlername eingeben.");
-            }
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null,e.getMessage(),"Fehler",JOptionPane.ERROR_MESSAGE );
-            return;
-        }
-
-        //Fehlerhafte Eingaben beim Kartenpreis abfangen
-        try {
-            kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString());
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe im Feld Kartenpreis","Fehler",JOptionPane.ERROR_MESSAGE);
-        }
-
 
         //Fehlerhafte Eingaben bei Datum und Uhrzeit abfangen
-
-        LocalDateTime ldtNeu = null; //Initialisieren der LocalDateTime ldtNeu außerhalb der try-catch-Anweisung, um später außerhalb darauf zugreifen zu können
         try {
             //String datumEingabe in tag, monat und jahr aufteilen
             int tag = Integer.parseInt(datumEingabe.substring(0,2));
@@ -152,10 +122,8 @@ public class KonzertfinderGUI extends JFrame {
             int jahr = Integer.parseInt(datumEingabe.substring(6));
 
             //String uhrzeitEingabe in stunde und minute aufteilen
-            String stundeEingabe = uhrzeitEingabe.substring(0,2);
-            String minuteEingabe = uhrzeitEingabe.substring(3);
-            int stunde = Integer.parseInt(stundeEingabe);
-            int minute = Integer.parseInt(minuteEingabe);
+            int stunde = Integer.parseInt(uhrzeitEingabe.substring(0,2));
+            int minute = Integer.parseInt(uhrzeitEingabe.substring(3));
 
             //einsetzen in neue LocalDateTime
             ldtNeu = LocalDateTime.of(jahr, monat, tag, stunde, minute);
@@ -164,7 +132,40 @@ public class KonzertfinderGUI extends JFrame {
             tfDatum.setText("");
             tfUhrzeit.setText("");
             JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe von Datum und/oder Uhrzeit!", "Fehler", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        try {
+            //Werfen einer Exception, wenn tfKuenstlername leer bleibt
+            kuenstlerEingabe = tfKuenstlername.getText().toString();
+            kuenstlerEingabe.trim(); //Abschneiden von Leerzeichen an Anfang/Ende, damit nicht nur ein Leerzeichen eingegeben werden kann
+            if (kuenstlerEingabe.equals("")){
+                throw new Exception("Bitte Künstlername eingeben");
+            }
+
+            //Werfen einer Exception, wenn kein Genre ausgewählt wurde
+            if (genreEingabe.equals("Auswählen...")){
+                throw new Exception("Bitte Genre auswählen");
+            }
+
+            //Werfen einer Exception, wenn Datum in der Vergangenheit liegt
+            if (ldtNeu.isBefore(LocalDateTime.now())){
+                throw new Exception("Eingegebenes Datum liegt in der Vergangenheit");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,e.getMessage(),"Fehler",JOptionPane.ERROR_MESSAGE );
+            return;
+        }
+
+        //Fehlerhafte Eingaben beim Kartenpreis abfangen
+        try {
+            kartenpreisEingabe = Double.parseDouble(tfPreis.getText().toString().trim());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Fehlerhafte Eingabe im Feld Kartenpreis","Fehler",JOptionPane.ERROR_MESSAGE);
+            tfPreis.setText("");
+            return;
+        }
+
 
         //Hinzufügen des Objekts zur Array-List
         Konzert kNeu = new Konzert(kuenstlerEingabe,ldtNeu,genreEingabe,kartenpreisEingabe,barrierefreiEingabe);
@@ -205,9 +206,10 @@ public class KonzertfinderGUI extends JFrame {
         for (Konzert ele : konzertliste){
             String objektGenre = ele.getGenre();
             boolean objektBarrierefrei = ele.isBarrierefrei();
+            boolean objektUnterHundert = ele.pruefeUnterHundert();
 
             boolean barrierefreiFilterOkay = (objektBarrierefrei || !barrierefreiFilter); //Voraussetzung: entweder Objekt ist barrierefrei oder Filter ist nicht ausgewählt
-            boolean unterHundertFilterOkay = (ele.pruefeUnterHundert() || !unterHundertFilter); //Voraussetzung: entweder Objekt ist günstiger als 100€ oder Filter ist nicht ausgewählt
+            boolean unterHundertFilterOkay = (objektUnterHundert || !unterHundertFilter); //Voraussetzung: entweder Objekt ist günstiger als 100 € oder Filter ist nicht ausgewählt
             boolean checkboxFilterOkay = (barrierefreiFilterOkay && unterHundertFilterOkay); //beide obigen Voraussetzungen zutreffend
 
             //prüfen, ob Objekt zu einem der Genres passt, nach denen gefiltert wird
@@ -234,7 +236,7 @@ public class KonzertfinderGUI extends JFrame {
 
     //Methode zum Sortieren der Objekte in der ArrayList und anschließende Ausgabe in der JTextArea
     private void sortieren(){
-        String sortiermodus = comboSortieren.getSelectedItem().toString();      //lieber in eine Zeile???
+        String sortiermodus = comboSortieren.getSelectedItem().toString();
 
         //Liste je nach ausgewähltem Sortiermodus ordnen
         if (sortiermodus.equals("Preis aufsteigend")){
