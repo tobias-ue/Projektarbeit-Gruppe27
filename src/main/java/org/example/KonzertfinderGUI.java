@@ -150,6 +150,8 @@ public class KonzertfinderGUI extends JFrame {
 
             //Werfen einer Exception, wenn Datum in der Vergangenheit liegt
             if (ldtNeu.isBefore(LocalDateTime.now())){
+                tfDatum.setText("");
+                tfUhrzeit.setText("");
                 throw new Exception("Eingegebenes Datum liegt in der Vergangenheit");
             }
         } catch (Exception e){
@@ -177,6 +179,7 @@ public class KonzertfinderGUI extends JFrame {
         tfUhrzeit.setText("");
         tfPreis.setText("");
         comboGenre.setSelectedItem("Auswählen...");
+        checkBarrierefreiEingabe.setSelected(false);
     }
 
     //Methode zum Anzeigen aller Objekte der ArrayList in der JTextArea
@@ -185,7 +188,7 @@ public class KonzertfinderGUI extends JFrame {
 
         taAusgabe.setText("");
         for (Konzert ele : konzertliste){
-            taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n");
+            taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n\n");
         }
     }
 
@@ -224,7 +227,7 @@ public class KonzertfinderGUI extends JFrame {
 
             //prüfen, ob Objekt zu einem ausgewählten Genre passt und auf die Checkbox-Filter zutrifft
             if (genreOkay && checkboxFilterOkay){
-                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n");
+                taAusgabe.append(ele.getKuenstlername() +  "\t" + ele.getGenre() +  "\t" + ele.getKartenpreis() +  "\t" + ele.getFormatiertesDatum() +  "\t" + ele.isBarrierefreiFormatiert() + "\n\n");
                 eintragGefunden = true;
             }
         }
