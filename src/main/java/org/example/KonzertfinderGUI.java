@@ -44,6 +44,8 @@ public class KonzertfinderGUI extends JFrame {
     private JTextField tfKategorien;
     private JLabel lblGenreFilter;
     private JCheckBox checkUnterHundert;
+    private JLabel lblLogo;
+
 
     //Anlegen der Array-List
     private ArrayList<Konzert> konzertliste = new ArrayList<Konzert>();
