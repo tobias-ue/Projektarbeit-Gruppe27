@@ -87,7 +87,7 @@ public class KonzertfinderGUI extends JFrame {
     }
 
     //Methode zum Initialisieren von drei Objekten und Hinzufügen zur ArrayList
-    public void initObjekte(){
+    private void initObjekte(){
         LocalDateTime d1 =  LocalDateTime.of(2025,04,23,19,00);
         Konzert init1 = new Konzert("Ed Sheeran", d1, "Pop", 70.0,true);
         konzertliste.add(init1);
@@ -110,7 +110,7 @@ public class KonzertfinderGUI extends JFrame {
         boolean barrierefreiEingabe = checkBarrierefreiEingabe.isSelected();
         String datumEingabe = tfDatum.getText().toString();
         String uhrzeitEingabe = tfUhrzeit.getText().toString();
-        double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld im nächsten Schritt
+        double kartenpreisEingabe = 0; //Wertzuweisung aus Textfeld folgt in der try-catch-Anweisung
 
         LocalDateTime ldtNeu = null; //Initialisieren der LocalDateTime ldtNeu außerhalb der try-catch-Anweisung, um später außerhalb darauf zugreifen zu können
 

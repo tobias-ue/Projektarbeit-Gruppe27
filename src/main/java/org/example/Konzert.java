@@ -60,6 +60,7 @@ public class Konzert {
         }
     }
 
+    //Methode zum Prüfen, ob der Kartenpreis < 100 ist
     public boolean pruefeUnterHundert(){
         boolean unterHundert = (kartenpreis < 100);
         return unterHundert;
